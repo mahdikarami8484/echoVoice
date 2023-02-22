@@ -56,14 +56,19 @@ public class Voice : MonoBehaviour
 
 	public float GetLoudnessFromAudioClip(int clipPosition, AudioClip clip)
 	{
+		if (clip == null)
+			return 0;
+		
 		int startPosition = clipPosition - sampleWindow;
 
 		if (startPosition < 0)
 			return 0;
 
 		float[] waveData = new float[sampleWindow];
-		clip.GetData (waveData, startPosition);
-
+		try{
+			clip.GetData (waveData, startPosition);
+		}catch{
+		}
 		float totalLoudness = 0;
 
 		for (int i = 0; i < sampleWindow; i++) 
